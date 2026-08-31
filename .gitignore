@@ -1,0 +1,43 @@
+
+# PYTHON / DJANGO BACKEND
+
+
+# Virtual environment
+backend/env/ 
+backend/venv/ 
+backend/.venv/
+
+# Python cache
+__pycache__/ 
+*.py[cod] 
+*.pyo
+
+# Django
+*.log
+db.sqlite3
+media/
+
+## Django database
+
+
+# Environment variables
+.env
+backend/.env
+.env.*
+
+
+
+
+
+# Node
+node_modules/
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+
+# OS
+.DS_Store
+Thumbs.db
