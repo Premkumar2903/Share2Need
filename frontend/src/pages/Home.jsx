@@ -7,8 +7,8 @@ export default function Home() {
   const { isLoggedIn, user, logout } = useAuth();
 
   return (
-    <div>
-        <h1>Sahre2Need</h1>
+    <div className='page'>
+        <h1>Share2Need</h1>
         <p>Food Rescue Platform</p>
 
         <p>
