@@ -7,6 +7,16 @@ import Home from "./pages/Home";
 import Login from "./pages/login";
 import Navbar from "./pages/Navbar";
 import Register from "./pages/Register";
+import DonorDashboard from "./pages/donor/DonorDashboard";
+import ReceiverDashboard from "./pages/receiver/ReceiverDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import CreateFood from "./pages/CreateFood";
+import MyFoods from "./pages/MyFoods";
+import EditFood from "./pages/EditFood";
+import BrowseFoods from "./pages/BrowseFoods";
+import FoodDetails from "./pages/FoodDetails";
+import MyReservations from "./pages/receiver/MyReservation";
+
 export default function App() {
 
   const [foods, setFoods] = useState([]);
@@ -44,6 +54,71 @@ export default function App() {
             <Route path="/" element={<Home/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>
+            <Route path="/donor/dashboard" 
+                element={  
+                    <ProtectedRoute allowedRole={'DONOR'}>
+                        <DonorDashboard/>
+                    </ProtectedRoute> 
+                }/>
+            <Route path="/receiver/dashboard" 
+                element={
+                    <ProtectedRoute>
+                        <ReceiverDashboard/>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route path="/donor/foods/create"
+                element={
+                    <ProtectedRoute allowedRole={'DONOR'}>
+                        <CreateFood />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route path="/donor/foods"
+                element={
+                    <ProtectedRoute>
+                        <MyFoods/>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route path="/donor/foods/:id/edit"
+                element={
+                    <ProtectedRoute>
+                        <EditFood/>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/receiver/foods"
+                element={
+                    <ProtectedRoute allowedRole={'RECEIVER'}>
+                        <BrowseFoods/>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route 
+                path="/receiver/foods/:id"
+                element={
+                    <ProtectedRoute allowedRole={'RECEIVER'}>
+                        <FoodDetails/>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/receiver/reservations"
+                element={
+                    <ProtectedRoute>
+                        <MyReservations/>
+                    </ProtectedRoute>
+                }
+            />
+        
         </Routes>
 
     </div>

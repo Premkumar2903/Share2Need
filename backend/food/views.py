@@ -58,7 +58,7 @@ from rest_framework.exceptions import ValidationError
 
 class FoodListingCreate(generics.ListCreateAPIView):
 
-    queryset = FoodListing.objects.all()
+    
     serializer_class = FoodListingSerializer
     # permission_classes = [IsAuthenticated]      #adding authentication
 
@@ -66,6 +66,22 @@ class FoodListingCreate(generics.ListCreateAPIView):
          if self.request.method == 'POST':  #only donor can post
             return [IsDonor()]    #adding custom permission to check authentication and role == 'DONOR' to allow create food
          return [IsAuthenticated()]
+
+    def get_queryset(self):
+
+        if self.request.user.role == "DONOR":
+            return FoodListing.objects.filter(
+                donor=self.request.user
+            )
+
+        if self.request.user.role == "RECEIVER":
+            return FoodListing.objects.filter(
+                status=FoodListing.Status.AVAILABLE,
+                available_until__gt =timezone.now()
+            )
+
+        return FoodListing.objects.none()
+
 
     def perform_create(self, serializer):
          #assigninh donor by backend by default req.user , then it takes logined user as donor
@@ -96,13 +112,17 @@ class FoodReservationCreate(generics.CreateAPIView):
             id = food_id
         )
 
-
+        now = timezone.now()
         if timezone.now() < food.available_from:
+            print("NOW:", now)
+            print("AVAILABLE FROM:", food.available_from)
+            print("NOW < AVAILABLE FROM:", now < food.available_from)
             raise ValidationError('This food is not available for pickup yet')
 
-        if timezone.now() > food.available_from:
-            food.Status = FoodListing.Status.EXPIRED    #setting food expired if current time passed expiredtime
-            food.save(update_fields='status')
+        if timezone.now() > food.available_until:
+            food.status = FoodListing.Status.EXPIRED    #setting food expired if current time passed expiredtime
+            food.save(update_fields=['status'])
+            raise ValidationError('This food listing has expired')
 
         requested_quantity = serializer.validated_data['quantity']
         

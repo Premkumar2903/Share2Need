@@ -1,7 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 export default function Home() {
+
+  const { isLoggedIn, user, logout } = useAuth();
+
   return (
     <div>
         <h1>Sahre2Need</h1>
@@ -13,9 +17,12 @@ export default function Home() {
 
         <p>Share extra food with people nearby instead of letting it go waste.</p>
 
-        <Link to = "/register">
-             Get Started
-        </Link>
+        {!isLoggedIn &&
+          <Link to = "/register">
+              Get Started
+          </Link>
+        }
+        
             
         
     </div>

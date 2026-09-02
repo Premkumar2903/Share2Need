@@ -26,10 +26,10 @@ urlpatterns = [
 
 
     ##Takes a set of user credentials and returns an access and refresh JSON webtoken pair to prove the authentication of those credentials
-    path('api/login/', TokenObtainPairView.as_view()),  
+    path('api/token/', TokenObtainPairView.as_view()),  
 
     path('api/refresh/', TokenRefreshView.as_view()),
 
-    path('api/register/', include('accounts.urls')),
+    path('api/', include('accounts.urls')),
     
 ]

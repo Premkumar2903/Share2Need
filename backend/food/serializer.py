@@ -36,11 +36,34 @@ class FoodListingSerializer(serializers.ModelSerializer):
 
 class FoodReservationSerializer(serializers.ModelSerializer):
 
+    food_title = serializers.CharField(
+        source="food.title",
+        read_only=True
+    )
+
+    unit = serializers.CharField(
+        source="food.unit",
+        read_only=True
+    )
+
+    pickup_address = serializers.CharField(
+        source="food.pickup_address",
+        read_only=True
+    )
+
+    available_until = serializers.DateTimeField(
+        source="food.available_until",
+        read_only=True
+    )
     class Meta:
         model = FoodReservation
-        fields =  [
+        fields = [
             "id",
             "food",
+            "food_title",
+            "unit",
+            "pickup_address",
+            "available_until",
             "receiver",
             "quantity",
             "status",
@@ -49,11 +72,14 @@ class FoodReservationSerializer(serializers.ModelSerializer):
         ]
 
         read_only_fields = [
-            'id',
-            'receiver',
-            'status',
-            'reserved_at',
-            'completed_at'
+            "receiver",
+            "status",
+            "reserved_at",
+            "completed_at",
+            "food_title",
+            "unit",
+            "pickup_address",
+            "available_until",
         ]
 
 
