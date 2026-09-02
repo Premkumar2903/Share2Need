@@ -238,6 +238,8 @@ class CompleteReservationView(generics.GenericAPIView):
 
     @transaction.atomic
     def post(self,request,pk):
+
+        #selecting reservation with requested user
         reservation = (
             FoodReservation.objects.select_for_update()
             .select_related('food')

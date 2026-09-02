@@ -9,6 +9,8 @@ export default function MyReservations() {
 
     const [cancellingId, setCancellingId] = useState(null);
 
+    const [completingId, setCompletingId] = useState(null);
+
     const fetchReservations = async () => {
         try {
             const response = await api.get(
@@ -66,6 +68,38 @@ export default function MyReservations() {
         }
     };
 
+
+    const handleComplete = async (reservationId) => {
+        try{
+            setCompletingId(reservationId)
+            setError('')
+
+            const response = await api.post(
+                `foods/reservation/${reservationId}/complete/`
+            )
+
+            console.log(
+                'Completion successful:',
+                response.data
+            )
+            fetchReservations();
+
+        } catch(error) {
+            console.error(
+                'Completion failed:',
+                error
+            )
+
+            setError(
+                error.response?.data
+                    ?JSON.stringify(error.response.data)
+                    : 'unable to complete reservation.'
+            )
+        } finally {
+            setCompletingId(null)
+        }
+    }
+
     return (
         <div>
             <h1>My Reservations</h1>
@@ -116,14 +150,24 @@ export default function MyReservations() {
                             </Link>
 
                             {reservation.status === "RESERVED" && (
-                                <button
-                                    onClick={() => handleCancel(reservation.id)}
-                                    disabled={cancellingId === reservation.id}
-                                >
-                                    {cancellingId === reservation.id
-                                        ? "Cancelling..."
-                                        : "Cancel Reservation"}
-                                </button>
+                                <>
+                                    <button
+                                        onClick={() => handleCancel(reservation.id)}
+                                        disabled={cancellingId === reservation.id}
+                                    >
+                                        {cancellingId === reservation.id
+                                            ? "Cancelling..."
+                                            : "Cancel Reservation"}
+                                    </button>
+
+                                    <button
+                                        onClick={()=> handleComplete(reservation.id)}
+                                        disabled={completingId === reservation.id}
+                                    >
+                                        {completingId === reservation.id ? 'completing' : 'Mark Completed'}
+                                    </button>
+                                </>
+                                
                              )}
 
                             <hr />
