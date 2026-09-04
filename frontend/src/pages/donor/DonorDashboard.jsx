@@ -8,6 +8,8 @@ export default function DonorDashboard() {
         <Link to={'/donor/foods/create'}>Create Food Listing</Link>
 
         <Link to={'/donor/foods'}>My Food Listings</Link>
+
+        <Link to={'/donor/reservations'}>Reservation Details</Link>
     </div>
   )
 }

@@ -289,7 +289,10 @@ class DonorReservationListView(generics.ListAPIView):
 
     def get_queryset(self):
         return FoodReservation.objects.filter(
-            food__donor=self.request.user
+        # food__donor=self.request.user:  means
+        # Give me reservations only for food listings where I am the donor.
+        # So Donor A cannot see reservations belonging to Donor B.
+        food__donor=self.request.user
         ).select_related(
             'food','receiver'
         ).order_by(

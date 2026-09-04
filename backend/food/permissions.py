@@ -20,6 +20,7 @@ class IsOwnerOrReadOnly(BasePermission):
         if request.method in ['GET','HEAD','OPTIONS']:
             return True
 
+        #for others methos [post,put,delete] check the owner is donor
         #if request user object is donor and the current user?, they can edit and delete food list
         #so one cant access other list only Owner edits their own food
         return obj.donor == request.user

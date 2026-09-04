@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import api from "../services/api";
+import { toDateTimeLocal, toISOString } from "../utils.js/datetime";
 
 function EditFood() {
 
@@ -15,8 +16,8 @@ function EditFood() {
         food_type: "VEGETARIAN",
         quantity: "",
         unit: "meals",
-        avaliable_from: "",
-        avaliable_until: "",
+        available_from: "",
+        available_until: "",
         pickup_address: "",
         latitude: "",
         longitude: "",
@@ -26,6 +27,20 @@ function EditFood() {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
 
+
+    // const formatDateTimeLocal = (dateTime) => {
+    //     if (!dateTime) {
+    //         return "";
+    //     }
+
+    //     const date = new Date(dateTime);
+
+    //     const offset = date.getTimezoneOffset() * 60000;
+
+    //     return new Date(date.getTime() - offset)
+    //         .toISOString()
+    //         .slice(0, 16);
+    // };
 
     useEffect(() => {
 
@@ -45,8 +60,8 @@ function EditFood() {
                     food_type: food.food_type || "VEGETARIAN",
                     quantity: food.quantity || "",
                     unit: food.unit || "meals",
-                    avaliable_from: food.avaliable_from || "",
-                    avaliable_until: food.avaliable_until || "",
+                    available_from: toDateTimeLocal(food.available_from) ,
+                    available_until: toDateTimeLocal(food.available_until) ,
                     pickup_address: food.pickup_address || "",
                     latitude: food.latitude || "",
                     longitude: food.longitude || "",
@@ -87,11 +102,17 @@ function EditFood() {
         setSaving(true);
         setError("");
 
+        const data = {
+            ...formData,
+            available_from: toISOString(formData.available_from),
+            available_until: toISOString(formData.available_until),
+        }
+
         try {
 
             await api.patch(
                 `/foods/${id}/`,
-                formData
+                data
             );
 
             navigate("/donor/foods");
@@ -131,7 +152,7 @@ function EditFood() {
             <form onSubmit={handleSubmit}>
 
                 <div>
-                    <label>Food Title</label>
+                    <label>Food Title: </label>
 
                     <input
                         type="text"
@@ -144,7 +165,7 @@ function EditFood() {
 
 
                 <div>
-                    <label>Description</label>
+                    <label>Description: </label>
 
                     <textarea
                         name="description"
@@ -183,7 +204,7 @@ function EditFood() {
 
 
                 <div>
-                    <label>Quantity</label>
+                    <label>Quantity: </label>
 
                     <input
                         type="number"
@@ -197,7 +218,7 @@ function EditFood() {
 
 
                 <div>
-                    <label>Unit</label>
+                    <label>Unit: </label>
 
                     <input
                         type="text"
@@ -209,12 +230,12 @@ function EditFood() {
 
 
                 <div>
-                    <label>Available From</label>
+                    <label>Available From: </label>
 
                     <input
                         type="datetime-local"
-                        name="avaliable_from"
-                        value={formData.avaliable_from}
+                        name="available_from"
+                        value={formData.available_from}
                         onChange={handleChange}
                         required
                     />
@@ -222,12 +243,12 @@ function EditFood() {
 
 
                 <div>
-                    <label>Available Until</label>
+                    <label>Available Until: </label>
 
                     <input
                         type="datetime-local"
-                        name="avaliable_until"
-                        value={formData.avaliable_until}
+                        name="available_until"
+                        value={formData.available_until}
                         onChange={handleChange}
                         required
                     />
@@ -235,7 +256,7 @@ function EditFood() {
 
 
                 <div>
-                    <label>Pickup Address</label>
+                    <label>Pickup Address: </label>
 
                     <textarea
                         name="pickup_address"
@@ -247,7 +268,7 @@ function EditFood() {
 
 
                 <div>
-                    <label>Latitude</label>
+                    <label>Latitude: </label>
 
                     <input
                         type="number"
@@ -260,7 +281,7 @@ function EditFood() {
 
 
                 <div>
-                    <label>Longitude</label>
+                    <label>Longitude: </label>
 
                     <input
                         type="number"

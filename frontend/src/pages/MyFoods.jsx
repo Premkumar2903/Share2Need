@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import api from "../services/api";
+import { formatDateTime } from "../utils.js/datetime";
 
 function MyFoods() {
 
@@ -50,7 +51,7 @@ function MyFoods() {
         try {
 
             await api.delete(`/foods/${id}/`);
-
+            // deleting food listing by filter food.id is not current food id
             setFoods(
                 foods.filter((food) => food.id !== id)
             );
@@ -118,12 +119,12 @@ function MyFoods() {
 
                              <p>
                                 <strong>Available From:</strong>{" "}
-                                {food.available_from}
+                                { formatDateTime (food.available_from)}
                             </p>
 
                             <p>
                                 <strong>Available Until:</strong>{" "}
-                                {food.available_until}
+                                {formatDateTime (food.available_until)}
                             </p>
                                             
                             <p>

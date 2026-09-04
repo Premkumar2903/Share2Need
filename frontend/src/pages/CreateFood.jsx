@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import { toISOString } from "../utils.js/datetime";
 
 
 export default function CreateFood() {
@@ -44,8 +45,8 @@ export default function CreateFood() {
         try {
             const data = {
                 ...formData,
-                available_from: new Date(formData.available_from).toISOString(),
-                available_until: new Date(formData.available_until).toISOString(),
+                available_from: toISOString(formData.available_from),
+                available_until: toISOString(formData.available_until),
             };
 
             console.log("Sending:", data);

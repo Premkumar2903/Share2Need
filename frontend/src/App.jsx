@@ -16,6 +16,7 @@ import EditFood from "./pages/EditFood";
 import BrowseFoods from "./pages/BrowseFoods";
 import FoodDetails from "./pages/FoodDetails";
 import MyReservations from "./pages/receiver/MyReservation";
+import DonorReservations from "./pages/donor/DonorReservations";
 
 export default function App() {
 
@@ -116,6 +117,16 @@ export default function App() {
                     <ProtectedRoute>
                         <MyReservations/>
                     </ProtectedRoute>
+                }
+            />
+
+            <Route 
+                path="/donor/reservations"
+                element={
+                    <ProtectedRoute>
+                       <DonorReservations/> 
+                    </ProtectedRoute>
+                    
                 }
             />
         
