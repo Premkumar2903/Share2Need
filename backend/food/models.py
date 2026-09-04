@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 # Create your models here.
 
@@ -22,20 +23,27 @@ class FoodListing(models.Model):
 
 
     def update_status(self):
-        reserved_quantity = self.reservations.filter(
-            status = FoodReservation.Status.RESERVED
-        ).aggregate(
-            total = models.Sum('quantity')
-        )['total'] or 0
 
-        remaining_quantity = self.quantity - reserved_quantity
+        now = timezone.now()
+        #updating expired status
+        if now> self.available_until:
+            self.status = self.status.EXPIRED
 
-        if remaining_quantity > 0:
-            self.status = self.Status.AVAILABLE
         else:
-            self.status = self.Status.FULLY_RESERVED
+            reserved_quantity = self.reservations.filter(
+                status = FoodReservation.Status.RESERVED
+            ).aggregate(
+                total = models.Sum('quantity')
+            )['total'] or 0
 
-        self.save(update_fields=['status'])
+            remaining_quantity = self.quantity - reserved_quantity
+
+            if remaining_quantity > 0:
+                self.status = self.Status.AVAILABLE # if quantiy more than 1
+            else:
+                self.status = self.Status.FULLY_RESERVED #quantiy is 0
+
+            self.save(update_fields=['status'])
 
 
 

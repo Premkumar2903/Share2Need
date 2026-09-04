@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import api from "../services/api";
+import { formatDateTime } from "../utils.js/datetime";
 
 export default function FoodDetails() {
 
@@ -129,12 +130,12 @@ const handleReserve = async (e) => {
 
             <p>
                 <strong>Available From:</strong>{" "}
-                {food.available_from}
+                {formatDateTime(food.available_from)}
             </p>
 
             <p>
                 <strong>Available Until:</strong>{" "}
-                {food.available_until}
+                {formatDateTime (food.available_until)}
             </p>
 
             <p>

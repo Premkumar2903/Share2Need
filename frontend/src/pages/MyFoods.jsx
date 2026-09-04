@@ -37,6 +37,37 @@ function MyFoods() {
 
     }, []);
 
+    const handleCancel = async (id) => {
+
+        const confirmed = window.confirm(
+            "Are you sure you want to Cancel this food listing?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+
+            await api.post(`/foods/${id}/cancel/`);
+            // deleting food listing by filter food.id is not current food id
+            setFoods((currentFoods) => 
+                currentFoods.map((food)=>
+                    food.id === id ?
+                    {
+                        ...food,
+                        status: 'CANCELLED'
+                    } :food
+                )
+            );
+
+        } catch (error) {
+
+            console.error(error);
+
+            setError("Unable to delete food listing.");
+        }
+    };
 
     const handleDelete = async (id) => {
 
@@ -138,6 +169,13 @@ function MyFoods() {
                                 Edit
                             </Link>
 
+                            <button
+                                onClick={() =>
+                                    handleCancel(food.id)
+                                }
+                            >
+                                Cancel
+                            </button>
 
                             <button
                                 onClick={() =>
@@ -145,7 +183,7 @@ function MyFoods() {
                                 }
                             >
                                 Delete
-                            </button>
+                            </button>     
 
                             <hr />
 

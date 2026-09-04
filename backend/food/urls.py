@@ -9,6 +9,8 @@ urlpatterns = [
 
     path('',views.FoodListingCreate.as_view()),
     path('<int:pk>/' , views.FoodListingDetail.as_view()),
+    path('<int:pk>/cancel/', views.cancelFoodListingView.as_view()),
+
     path('reservation/', views.FoodReservationCreate.as_view()),
     path('reservation/my/', views.MyReservationListView.as_view()),
     path('reservation/<int:pk>/cancel/',views.CancelReservationView.as_view()),

@@ -70,6 +70,19 @@ class FoodListingCreate(generics.ListCreateAPIView):
     def get_queryset(self):
 
         if self.request.user.role == "DONOR":
+            FoodListing.objects.filter(
+                donor=self.request.user,
+                available_until__lt=timezone.now(),  #__lt = lesthan , filter less than now time
+
+                #find foods whose current status is either AVAILABLE or FULLY_RESERVED
+                status__in=[        #_i_n means in status
+                    FoodListing.Status.AVAILABLE,
+                    FoodListing.Status.FULLY_RESERVED,
+                ]
+            ).update(
+                status=FoodListing.Status.EXPIRED  #Change the status of all matching records to EXPIRED
+            )
+
             return FoodListing.objects.filter(
                 donor=self.request.user
             )
@@ -88,6 +101,36 @@ class FoodListingCreate(generics.ListCreateAPIView):
          serializer.save(donor=self.request.user) 
 
 
+#cancel foodlisting
+#to stop new people from reserving it
+class cancelFoodListingView(generics.GenericAPIView):
+    queryset = FoodListing.objects.all()
+    permission_classes = [IsDonor]
+
+    def post(self,request,pk):
+        food = FoodListing.objects.filter(
+            id = pk,
+            donor = request.user
+        ).first()
+
+        if not food:
+            raise ValidationError(
+                'Food listing not found'
+            )
+
+        if food.status == FoodListing.Status.CANCELLED:
+            raise ValidationError(
+                "This food listing is already cancelled."
+            )
+
+        if food.status == FoodListing.Status.COMPLETED:
+            raise ValidationError(
+                 "Completed food listings cannot be cancelled."
+            )
+        food.status = FoodListing.Status.CANCELLED
+        food.save(update_fields=['status'])
+
+        return Response({'message': 'Food listing cancelled successfully'})
 
 class FoodListingDetail(generics.RetrieveUpdateDestroyAPIView):
      queryset = FoodListing.objects.all()
