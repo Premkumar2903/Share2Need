@@ -4,7 +4,7 @@ import React from 'react'
 import api from "./services/api";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./pages/login";
+import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Register from "./pages/Register";
 import DonorDashboard from "./pages/donor/DonorDashboard";

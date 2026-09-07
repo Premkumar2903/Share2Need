@@ -1,30 +1,61 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import '../styles/home.css'
+
 
 export default function Home() {
 
   const { isLoggedIn, user, logout } = useAuth();
 
+  
   return (
-    <div className='page'>
-        <h1>Share2Need</h1>
-        <p>Food Rescue Platform</p>
+    <main className='home'>
 
-        <p>
-            Rescue and donate surplur food. Feed someone in need.
-        </p>
+        <section className='hero'>
+            <video 
+            className='hero-video'
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source 
+                src='/heartCover.mp4'
+                type='video/mp4'
+              />
+            </video>
 
-        <p>Share extra food with people nearby instead of letting it go waste.</p>
+          <div className='hero-overlay'></div>
 
-        {!isLoggedIn &&
-          <Link to = "/register">
-              Get Started
-          </Link>
-        }
+          <div className='hero-content'>
+
+            <h1>Share2Need</h1>
+
+            <h2>
+                Share Surplus.
+                <br />
+                Feed Someone.
+            </h2>
+            <p>Food Rescue Platform</p>
+
+            <p>
+                Rescue and donate surplur food. Feed someone in need.
+            </p>
+
+            <p>Share extra food with people nearby instead of letting it go waste.</p>
+
+            {!isLoggedIn &&
+              <Link to = "/register">
+                  Get Started
+              </Link>
+            }
+            
+          </div>
+          
         
             
-        
-    </div>
+       </section> 
+    </main>
   )
 }
