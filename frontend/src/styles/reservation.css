@@ -1,0 +1,303 @@
+.reservations-page {
+    min-height: calc(100vh - 70px);
+    padding: 60px 7%;
+    background: var(--background);
+
+}
+
+.reservation-page {
+    margin-bottom: 35px;
+}
+
+
+/* Header */
+
+.reservations-header {
+    max-width: 1100px;
+    margin: 0 auto 40px;
+}
+
+
+
+.reservations-header h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    margin-bottom: 12px;
+}
+
+.reservations-header p {
+    color: var(--text-secondary);
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+
+/* Error */
+
+.reservation-error {
+    max-width: 1100px;
+    margin: 0 auto 25px;
+
+    padding: 14px 18px;
+
+    border-radius: var(--radius-md);
+
+    background: #fef2f2;
+    color: var(--danger);
+
+    border: 1px solid #fecaca;
+}
+
+
+/* Reservation grid */
+
+.reservations-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 24px;
+}
+
+
+/* Card */
+
+.reservation-card {
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #e8f5e9 100%
+    );
+
+    border: 1px solid #cfe6d5;
+
+    border-radius: var(--radius-lg);
+
+    padding: 28px;
+
+    box-shadow: var(--shadow-sm);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.reservation-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: var(--shadow-md);
+}
+
+
+/* Card header */
+
+.reservation-card-header {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+.reservation-card-header h2 {
+    font-size: 22px;
+    line-height: 1.3;
+}
+
+
+/* Status */
+
+.status-badge {
+    flex-shrink: 0;
+
+    padding: 6px 12px;
+
+    border-radius: 50PX;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+}
+
+.status-reserved {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-completed {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.status-cancelled {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+
+/* Details */
+
+.reservation-details {
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+
+    margin-bottom: 25px;
+}
+
+.reservation-detail {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.detail-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.reservation-detail strong {
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+
+/* Actions */
+
+.reservation-actions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding-top: 20px;
+
+    /* slight border */
+    border-top: 1px solid var(--border);
+}
+
+.reservation-actions a,
+.reservation-actions button {
+    padding: 10px 16px;
+
+    border-radius: var(--radius-sm);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border: none;
+
+    transition: 0.2s ease;
+}
+
+
+/* View food */
+
+.view-food-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.view-food-btn:hover {
+    background: var(--primary-dark);
+}
+
+
+/* Cancel */
+
+.cancel-button {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.cancel-button:hover:not(:disabled) {
+    background: #fecaca;
+}
+
+
+/* Complete */
+
+.complete-button {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.complete-button:hover:not(:disabled) {
+    background: #bbf7d0;
+}
+
+
+/* Disabled */
+
+.reservation-actions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* Empty state */
+
+.empty-reservations {
+    max-width: 600px;
+
+    margin: 60px auto;
+
+    padding: 50px 30px;
+
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #e8f5e9 100%
+    );
+
+    border: 1px solid #cfe6d5;
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-sm);
+}
+
+.empty-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.empty-reservations h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.empty-reservations p {
+    color: var(--text-secondary);
+
+    line-height: 1.6;
+
+    margin-bottom: 25px;
+}
+
+.primary-button {
+    display: inline-block;
+
+    padding: 11px 22px;
+
+    background: var(--primary);
+    color: white;
+
+    border-radius: var(--radius-sm);
+
+    font-weight: 600;
+}
+
+.primary-button:hover {
+    background: var(--primary-dark);
+}

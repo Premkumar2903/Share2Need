@@ -1,56 +1,25 @@
 :root {
-
-    /* =========================
-       BRAND COLORS
-       ========================= */
-
     --primary: #2E7D32;
     --primary-dark: #1B5E20;
     --primary-light: #E8F5E9;
 
-    /* =========================
-       BACKGROUND
-       ========================= */
-
-    --background: #F7F9F7;
+    /* --background: #F3F8F3; */
+    --background-color: #eaf7ef;
     --surface: #FFFFFF;
-
-    /* =========================
-       TEXT
-       ========================= */
 
     --text-primary: #1F2937;
     --text-secondary: #6B7280;
-    --text-muted: #9CA3AF;
-
-    /* =========================
-       STATUS
-       ========================= */
 
     --success: #16A34A;
     --warning: #D97706;
     --danger: #DC2626;
-    --info: #2563EB;
 
-    /* =========================
-       BORDER
-       ========================= */
-
-    --border: #E5E7EB;
-
-    /* =========================
-       SHADOW
-       ========================= */
+    --border: #E1E8E1;
 
     --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.08);
 
-    /* =========================
-       BORDER RADIUS
-       ========================= */
-
     --radius-sm: 6px;
     --radius-md: 10px;
     --radius-lg: 16px;
-
 }

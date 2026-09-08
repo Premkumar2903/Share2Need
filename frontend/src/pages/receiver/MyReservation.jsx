@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
+import '../../styles/reservation.css'
+import { formatDateTime } from "../../utils.js/datetime";
+
 
 export default function MyReservations() {
     const [reservations, setReservations] = useState([]);
@@ -75,7 +78,7 @@ export default function MyReservations() {
             setError('')
 
             const response = await api.post(
-                `foods/reservation/${reservationId}/complete/`
+                `/foods/reservation/${reservationId}/complete/`
             )
 
             console.log(
@@ -101,53 +104,162 @@ export default function MyReservations() {
     }
 
     return (
-        <div>
-            <h1>My Reservations</h1>
+        <main className="reservations-page">
 
-            {error && <p>{error}</p>}
+            <section className="reservation-page">
+                <h1 className="text-3xl mb-1.5">My Reservations</h1>
+
+                <p>
+                    Track the food you've reserved and manage your reservations
+                </p>
+            </section>
+            
+
+            {error && (
+                <div className="reservation-error">
+                    {error}
+                </div>
+            )}
 
             {reservations.length === 0 ? (
-                <p>You haven't reserved any food yet.</p>
+                // laod when no reservation 
+                <section>
+                   <h2>No reservations yet</h2>
+                   <p>You haven't reserved any food yet.</p> 
+
+                   <Link to={'/receiver/foods'}
+                        className="primary-button"
+                   >
+                        Browse Food
+                    </Link>
+                </section>
+                
             ) : (
-                <div>
+                <section className="reservations-grid">
+
                     {reservations.map((reservation) => (
-                        <div key={reservation.id}>
-                            <h2>{reservation.food_title}</h2>
 
-                            <p>
-                                <strong>
-                                    Quantity:
-                                </strong>{" "}
-                                {reservation.quantity}{" "}
-                                {reservation.unit}
-                            </p>
+                        <article 
+                            className="reservation-card"
+                            key={reservation.id}
+                        >
+                            <div className="reservation-card-header">
+                                <h2>{reservation.food_title}</h2>
 
-                            <p>
-                                <strong>
-                                    Pickup Address:
-                                </strong>{" "}
-                                {reservation.pickup_address}
-                            </p>
+                                {/* dynamic class name */}
+                                <span
+                                  className={`status-badge status-${reservation.status.toLowerCase()}`}
+                                >
+                                    {reservation.status}
+                                </span>
+                            </div>
 
-                            <p>
-                                <strong>
-                                    Available Until:
-                                </strong>{" "}
-                                {reservation.available_until}
-                            </p>
+                            <div className="reservation-details">
+                                <div className="reservation-detail">
+                                   <span className="detail-label">
+                                        Quantity
+                                    </span> 
 
-                            <p>
-                                <strong>
-                                    Status:
-                                </strong>{" "}
-                                {reservation.status}
-                            </p>
+                                    <strong>
+                                        {reservation.quantity}{" "}
+                                        {reservation.unit}
+                                    </strong>
+                                </div>
 
-                            <Link
-                                to={`/receiver/foods/${reservation.food}`}
-                            >
-                                View Food
-                            </Link>
+
+
+                                <div className="reservation-detail">
+                                    <span className="detail-label">
+                                        Pickup Address
+                                    </span>
+
+                                    <strong>
+                                        {reservation.pickup_address}
+                                    </strong>
+                                </div>
+
+
+                                <div className="reservation-detail">
+                                    <span className="detail-label">
+                                        Avaliable Until
+                                    </span>
+
+                                    <strong>
+                                        {formatDateTime(reservation.available_until)}
+                                    </strong>
+                                </div>
+                            </div>
+
+
+                            <div  className="reservation-actions">
+                                <Link
+                                    to={`/receiver/foods/${reservation.food}`}
+                                    className="view-food-btn"
+                                >
+                                    View Food
+                                </Link>
+
+                                {reservation.status === "RESERVED" && (
+                                    <>
+                                        <button
+                                            onClick={() => handleCancel(reservation.id)}
+                                            disabled={cancellingId === reservation.id}
+                                        >
+                                            {cancellingId === reservation.id
+                                                ? "Cancelling..."
+                                                : "Cancel Reservation"}
+                                        </button>
+
+                                        <button
+                                            onClick={()=> handleComplete(reservation.id)}
+                                            disabled={completingId === reservation.id}
+                                        >
+                                            {completingId === reservation.id ? 'completing' : 'Mark Completed'}
+                                        </button>
+                                    </>
+                                    
+                                )}
+                            </div>
+
+
+
+
+                                {/* <p>
+                                    <strong>
+                                        Quantity:
+                                    </strong>{" "}
+                                    {reservation.quantity}{" "}
+                                    {reservation.unit}
+                                </p>
+
+                                <p>
+                                    <strong>
+                                        Pickup Address:
+                                    </strong>{" "}
+                                    {reservation.pickup_address}
+                                </p>
+
+                                <p>
+                                    <strong>
+                                        Available Until:
+                                    </strong>{" "}
+                                    {reservation.available_until}
+                                </p>
+
+                                <p>
+                                    <strong>
+                                        Status:
+                                    </strong>{" "}
+                                    {reservation.status}
+                                </p>
+
+                                <Link
+                                    to={`/receiver/foods/${reservation.food}`}
+                                >
+                                    View Food
+                                </Link>
+                            
+                            
 
                             {reservation.status === "RESERVED" && (
                                 <>
@@ -170,11 +282,11 @@ export default function MyReservations() {
                                 
                              )}
 
-                            <hr />
-                        </div>
+                            <hr /> */}
+                        </article>
                     ))}
-                </div>
+                </section>
             )}
-        </div>
+        </main>
     );
 }

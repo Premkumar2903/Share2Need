@@ -1,0 +1,111 @@
+
+
+.dashboard{
+    min-height: calc(100vh - 100px);
+    background: var(--background);
+    padding: 60px 7%;
+}
+
+.dashboard-header{
+    max-width: 1000px;
+    margin: 0px auto 65px;
+}
+
+.dashboard-label{
+    color: var(--primary);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.dashboard-header h1{
+    font-size: clamp(32px, 5vw,48px);
+    margin-bottom: 12px;
+}
+
+.dashboard-description{
+    color: var(--text-secondary);
+    font-size: 18px;
+    max-width: 650px;
+    line-height: 1.6;
+}
+
+/* card */
+.dashboard-actions{
+    max-width: 1100px;
+    margin: 0 auto;
+    
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px;
+}
+
+
+.dashboard-card{
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #e8f5e9 100%
+    );
+
+    padding: 20px;
+    border: 1px solid #cfe6d5;
+    border-radius: 16px;
+
+    box-shadow: 0 6px 18px rgba(46, 125, 50, 0.08);
+
+    transition: all 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+    ;
+}
+
+
+.dashboard-card:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(46, 125, 50, 0.14);
+    border-color: var(--primary);
+}
+
+.dashboard-card h2{
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.dashboard-card p{
+    color: var(--text-secondary);
+    line-height: 1.6;
+    min-height: 76px;
+    margin-bottom: 20px;
+    
+}
+
+.card-link{
+    color: var(--primary);
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.dashboard-card:hover .card-link {
+    color: var(--primary-dark);
+}
+
+.card-icon{
+    margin-right: 5px;
+}
+
+@media (max-width: 800px) {
+
+    .dashboard-actions{
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard{
+        padding: 40px 5%;
+    }
+
+    .dashboard-card p{
+        min-height: auto;
+    }
+}
