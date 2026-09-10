@@ -6,8 +6,8 @@ export default function Navbar() {
   const { isLoggedIn, user, logout } = useAuth();
   return (
     <nav>
-        <h2>
-            <Link to='/'> Share2Need</Link>
+        <h2 >
+            <Link className='name' to='/'> Share2Need</Link>
         </h2>
 
         <div className='flex nav-container'>

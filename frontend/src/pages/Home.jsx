@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import '../styles/home.css'
+import Footer from '../components/Footer';
 
 
 export default function Home() {
@@ -53,9 +54,12 @@ export default function Home() {
             
           </div>
           
-        
+         
             
        </section> 
+
+       <Footer/>
     </main>
+     
   )
 }

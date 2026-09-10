@@ -54,6 +54,11 @@ nav h1 {
   font-weight: 700;
 }
 
+.name{
+  font-size: 20px;
+  color: #15803d;
+}
+
 /* Navigation links */
 
 nav a, nav button {
