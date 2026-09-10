@@ -23,9 +23,7 @@ body {
   min-height: 100vh;
 }
 
-/* ================================
-   GLOBAL RESET
-================================ */
+
 
 
 
@@ -34,13 +32,18 @@ nav {
   justify-content: space-between;
   align-items: center;
 
-  padding: 16px 40px;
+  padding: 16px 30px;
 
   background-color: #ffffff;
 
   border-bottom: 1px solid #d8e8de;
 
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+  align-items: center;
+  justify-content: center;
 }
 
 /* Logo / Brand */
@@ -53,7 +56,7 @@ nav h1 {
 
 /* Navigation links */
 
-nav a {
+nav a, nav button {
   text-decoration: none;
   color: #374151;
 
@@ -65,8 +68,18 @@ nav a {
   transition: color 0.2s ease;
 }
 
-nav a:hover {
+nav a:hover ,nav  button:hover {
   color: #15803d;
+}
+
+nav button{
+  background-color: #eaf7ef;
+  border: 1px solid #c6d8cd;
+  padding: 8px;
+  border-radius: 6px;
+
+  font-weight: 500; 
+  cursor: pointer;
 }
 
 /* ================================

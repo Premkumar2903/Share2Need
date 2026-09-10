@@ -17,6 +17,7 @@ import BrowseFoods from "./pages/BrowseFoods";
 import FoodDetails from "./pages/FoodDetails";
 import MyReservations from "./pages/receiver/MyReservation";
 import DonorReservations from "./pages/donor/DonorReservations";
+import About from "./pages/About";
 
 export default function App() {
 
@@ -55,6 +56,8 @@ export default function App() {
             <Route path="/" element={<Home/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>
+            <Route path="/about" element={<About/>}/>
+
             <Route path="/donor/dashboard" 
                 element={  
                     <ProtectedRoute allowedRole={'DONOR'}>
