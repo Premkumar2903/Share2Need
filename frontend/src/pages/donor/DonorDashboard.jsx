@@ -22,7 +22,6 @@ export default function DonorDashboard() {
         <section className='dashboard-actions'>
 
           <Link to={'/donor/foods/create'} className='dashboard-card'>
-            <div className='card-icon' > <LayersPlus/> </div>
 
             <h2 className='text-3xl'>
               <LayersPlus className='inline card-icon' />

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import api from "../services/api";
 import { formatDateTime } from "../utils.js/datetime";
+import '../styles/myfoods.css'
 
 function MyFoods() {
 
@@ -102,99 +103,162 @@ function MyFoods() {
 
 
     return (
-        <div>
+        <main className="my-foods-page">
 
-            <h1>My Food Listings</h1>
-
-            <Link to="/donor/foods/create">
-                + Create Food Listing
-            </Link>
-
-            {error && (
-                <p>{error}</p>
-            )}
-
-
-            {foods.length === 0 ? (
-
-                <p>
-                    You haven't created any food listings yet.
-                </p>
-
-            ) : (
-
+            
+            <section className="my-foods-header">
                 <div>
+                    <h1>My Food Listings</h1>
 
-                    {foods.map((food) => (
-
-                        <div key={food.id}>
-
-                            <h2>{food.title}</h2>
-
-                            <p>
-                                {food.description}
-                            </p>
-
-                            <p>
-                                Food Type: {food.food_type}
-                            </p>
-
-                            <p>
-                                Quantity: {food.quantity} {food.unit}
-                            </p>
-
-                            <p>
-                                Status: {food.status}
-                            </p>
-
-
-                             <p>
-                                <strong>Available From:</strong>{" "}
-                                { formatDateTime (food.available_from)}
-                            </p>
-
-                            <p>
-                                <strong>Available Until:</strong>{" "}
-                                {formatDateTime (food.available_until)}
-                            </p>
-                                            
-                            <p>
-                                Pickup: {food.pickup_address}
-                            </p>
-
-
-                            <Link
-                                to={`/donor/foods/${food.id}/edit`}
-                            >
-                                Edit
-                            </Link>
-
-                            <button
-                                onClick={() =>
-                                    handleCancel(food.id)
-                                }
-                            >
-                                Cancel
-                            </button>
-
-                            <button
-                                onClick={() =>
-                                    handleDelete(food.id)
-                                }
-                            >
-                                Delete
-                            </button>     
-
-                            <hr />
-
-                        </div>
-
-                    ))}
-
+                    <Link to="/donor/foods/create"
+                        className="create-food-link"
+                    >
+                        + Create Food Listing
+                    </Link>
                 </div>
-            )}
+                
+            </section>
 
-        </div>
+                {error && (
+                    <div className="food-error">
+                        {error}
+                    </div>
+                )}
+            
+
+
+                {foods.length === 0 ? (
+                    <section className="empty-foods">
+                        <h2>No food listings yet</h2>
+
+                        <p>
+                            You haven't created any food listings yet.
+                            Share your surplus food to help someone in need.
+                        </p>
+
+                        <Link 
+                            to="/donor/foods/create"
+                            className="create-food-link"
+                        >
+                            Create Food Listing
+                        </Link>
+                    </section>
+                    
+
+                ) : (
+
+                    <section className="my-foods-grid">
+
+                        {foods.map((food) => (
+
+                            <article key={food.id}
+                                className="my-food-card" 
+                            >
+                                <div className="food-type-header">
+                                    <div className="">
+                                        <p>{food.food_type}</p>
+                                        <h2>{food.title}</h2>
+                                    </div>
+
+                                    <span 
+                                        className= {`status-badge status-${food.status.toLowerCase()}`}
+                                    >
+                                        {food.status}
+                                    </span>
+                                </div>
+
+                                
+
+                                <p className="my-food-description">
+                                    {food.description}
+                                </p>
+
+                                <div className="my-food-info">
+
+                                    <div className="my-food-info-item">
+                                        <span>Quantity</span>
+
+                                        <strong>
+                                            {food.quantity} {food.unit}
+                                        </strong>
+                                    </div>
+                                                             
+                                                        
+                                    <div className="my-food-info-item">
+                                        <p>
+                                            <span>Available From:</span>{" "}
+
+                                            <strong >
+                                                { formatDateTime (food.available_from)}
+                                            </strong>
+                                            
+                                        </p>
+                                    </div>
+
+                                    <div className="my-food-info-item">
+                                        <p>
+                                            <span>Available Until:</span>{" "}
+                                            <strong>
+                                                {formatDateTime (food.available_until)}
+                                            </strong>
+                                            
+                                        </p>
+                                    </div>
+
+                                </div>
+                                
+                                <div className="my-food-pickup">
+                                    <span> Pickup Address</span>   
+                                     <strong>
+                                        {food.pickup_address}
+                                    </strong>
+                                </div>             
+                                
+
+                                <div className="my-food-actions">
+                                    <Link
+                                        to={`/donor/foods/${food.id}/edit`}
+                                        className="edit-food-button"
+                                    >
+                                        Edit
+                                    </Link>
+                                
+                                    
+
+                                    <button
+                                        className="cancel-food-button"
+                                        onClick={() =>
+                                            handleCancel(food.id)
+                                        }
+                                        disabled={
+                                            food.status === "CANCELLED"
+                                        }                            
+                                    >
+                                        {food.status === "CANCELLED"
+                                            ? "Cancelled"
+                                            : "Cancel"
+                                        }
+                                    </button>
+
+                                    <button
+                                       className="delete-food-button"
+                                        onClick={() =>
+                                            handleDelete(food.id)
+                                        }
+                                    >
+                                        Delete
+                                    </button>     
+                                </div>
+                            </article>
+
+                        ))}
+
+                    </section>
+                )}
+
+            
+
+        </main>
     );
 }
 

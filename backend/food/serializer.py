@@ -55,6 +55,11 @@ class FoodReservationSerializer(serializers.ModelSerializer):
         source="food.available_until",
         read_only=True
     )
+
+    receiver_name = serializers.CharField(
+        source='receiver.username',
+        read_only=True
+    )
     class Meta:
         model = FoodReservation
         fields = [
@@ -65,6 +70,7 @@ class FoodReservationSerializer(serializers.ModelSerializer):
             "pickup_address",
             "available_until",
             "receiver",
+            'receiver_name',
             "quantity",
             "status",
             "reserved_at",

@@ -190,6 +190,7 @@ const handleReserve = async (e) => {
                                     id="quantity"
                                     type="number"
                                     min="1"
+                                    max={food.quantity}
                                     value={quantity}
                                     onChange={(e) =>
                                         setQuantity(e.target.value)

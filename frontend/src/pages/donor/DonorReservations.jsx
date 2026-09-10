@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
+import { formatDateTime } from '../../utils.js/datetime'
+import '../../styles/reservation.css'
 
 
 export default function DonorReservations() {
@@ -36,55 +38,142 @@ export default function DonorReservations() {
     }
 
   return (
-    <div>
-      <div><h3>Donor reservations</h3></div>
+    <main className="reservations-page">
 
-      {error && <p>{error}</p>}
+        <section className="reservations-header">
 
-      {reservations.length === 0 ? (
-        <p>
-          No resrvation have been made for your food yet.
-        </p>
-      ):(
-        <div>
-          {reservations.map((reservation)=> (
+            <div>
+                <p className="page-label">
+                    DONOR RESERVATIONS
+                </p>
 
-          <div key={reservation.id}>
-            <h2>
-              {reservation.food_title}
-            </h2>
+                <h1>Food Reservations</h1>
 
-            <p>
-                  <strong>
-                      Quantity:
-                  </strong>{" "}
-                  {reservation.quantity}{" "}
-                  {reservation.unit}
-              </p>
+                <p>
+                    See who has reserved your food and track
+                    reservation activity.
+                </p>
+            </div>
 
-            <p>
-              <strong>Pickup Address:</strong>{" "} 
-              {reservation.pickup_address}
-            </p>
+        </section>
 
-            <p>
-                <strong>
-                    Available Until:
-                </strong>{" "}
-                {reservation.available_until}
-            </p>
-  
 
-            <p> status: {reservation.status}</p>
+        {error && (
+            <div className="reservation-error">
+                {error}
+            </div>
+        )}
 
-            <p>receiver: {reservation.receiver}</p>
-          </div>
-        ))}
-        </div>
-      )}
 
-      
-    </div>
-    
-  )
+        {reservations.length === 0 ? (
+
+            <section className="empty-reservations">
+                <h2>No reservations yet</h2>
+
+                <p>
+                    No reservations have been made for your food yet.
+                    Once someone reserves your food, their reservation
+                    will appear here.
+                </p>
+
+            </section>
+
+        ) : (
+
+            <section className="reservations-grid">
+
+                {reservations.map((reservation) => (
+
+                    <article
+                        className="reservation-card"
+                        key={reservation.id}
+                    >
+
+                        <div className="reservation-card-header">
+
+                            <div>
+                                <p className="reservation-label">
+                                    FOOD RESERVED
+                                </p>
+
+                                <h2>
+                                    {reservation.food_title}
+                                </h2>
+                            </div>
+
+                            <span
+                                className={`status-badge status-${reservation.status.toLowerCase()}`}
+                            >
+                                {reservation.status}
+                            </span>
+
+                        </div>
+
+
+                        <div className="reservation-details">
+
+                            <div className="reservation-detail">
+
+                                <span className="detail-label">
+                                    Quantity
+                                </span>
+
+                                <strong>
+                                    {reservation.quantity}{" "}
+                                    {reservation.unit}
+                                </strong>
+
+                            </div>
+
+
+                            <div className="reservation-detail">
+
+                                <span className="detail-label">
+                                    Receiver
+                                </span>
+
+                                <strong>
+                                    {reservation.receiver_name}
+                                </strong>
+
+                            </div>
+
+
+                            <div className="reservation-detail">
+
+                                <span className="detail-label">
+                                    Available Until
+                                </span>
+
+                                <strong>
+                                    {formatDateTime(reservation.available_until)}
+                                </strong>
+
+                            </div>
+
+
+                            <div className="reservation-detail">
+
+                                <span className="detail-label">
+                                    Pickup Address
+                                </span>
+
+                                <strong>
+                                    {reservation.pickup_address}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                ))}
+
+            </section>
+
+        )}
+
+    </main>
+);
 }

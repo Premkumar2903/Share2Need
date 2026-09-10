@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import api from "../services/api";
 import { toDateTimeLocal, toISOString } from "../utils.js/datetime";
+import '../styles/createfood.css'
 
 function EditFood() {
 
@@ -145,169 +146,199 @@ function EditFood() {
 
 
     return (
-        <div>
+        <main className="create-food-page">
 
-            <h1>Edit Food Listing</h1>
+            <section className="create-food-container">
 
-            <form onSubmit={handleSubmit}>
-
-                <div>
-                    <label>Food Title: </label>
-
-                    <input
-                        type="text"
-                        name="title"
-                        value={formData.title}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className="create-food-header">
+                    <h1 className="page-label">
+                       Edit Food Listing
+                    </h1>  
                 </div>
+                
 
-
-                <div>
-                    <label>Description: </label>
-
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                    />
-                </div>
-
-
-                <div>
-                    <label>Food Type</label>
-
-                    <select
-                        name="food_type"
-                        value={formData.food_type}
-                        onChange={handleChange}
-                    >
-                        <option value="VEGETARIAN">
-                            Vegetarian
-                        </option>
-
-                        <option value="NON_VEGETARIAN">
-                            Non-Vegetarian
-                        </option>
-
-                        <option value="VEGAN">
-                            Vegan
-                        </option>
-
-                        <option value="OTHER">
-                            Other
-                        </option>
-
-                    </select>
-                </div>
-
-
-                <div>
-                    <label>Quantity: </label>
-
-                    <input
-                        type="number"
-                        name="quantity"
-                        min="1"
-                        value={formData.quantity}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-
-                <div>
-                    <label>Unit: </label>
-
-                    <input
-                        type="text"
-                        name="unit"
-                        value={formData.unit}
-                        onChange={handleChange}
-                    />
-                </div>
-
-
-                <div>
-                    <label>Available From: </label>
-
-                    <input
-                        type="datetime-local"
-                        name="available_from"
-                        value={formData.available_from}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-
-                <div>
-                    <label>Available Until: </label>
-
-                    <input
-                        type="datetime-local"
-                        name="available_until"
-                        value={formData.available_until}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-
-                <div>
-                    <label>Pickup Address: </label>
-
-                    <textarea
-                        name="pickup_address"
-                        value={formData.pickup_address}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-
-                <div>
-                    <label>Latitude: </label>
-
-                    <input
-                        type="number"
-                        step="any"
-                        name="latitude"
-                        value={formData.latitude}
-                        onChange={handleChange}
-                    />
-                </div>
-
-
-                <div>
-                    <label>Longitude: </label>
-
-                    <input
-                        type="number"
-                        step="any"
-                        name="longitude"
-                        value={formData.longitude}
-                        onChange={handleChange}
-                    />
-                </div>
-
-
-                <button
-                    type="submit"
-                    disabled={saving}
+                <form 
+                    className="create-food-form"
+                    onSubmit={handleSubmit}
                 >
-                    {saving ? "Saving..." : "Save Changes"}
-                </button>
 
-            </form>
+                    <div className="form-group">
+                        <label>Food Title: </label>
+
+                        <input
+                           id="title"
+                            type="text"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
 
-            {error && (
-                <p>{error}</p>
-            )}
+                    <div className="form-group">
+                        <label>Description: </label>
 
-        </div>
+                        <textarea
+                            id="description"
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+
+                    <div className="form-row"> 
+
+                        <div className="form-group">
+                            <label>Food Type</label>
+
+                            <select
+                                name="food_type"
+                                value={formData.food_type}
+                                onChange={handleChange}
+                            >
+                                <option value="VEGETARIAN">
+                                    Vegetarian
+                                </option>
+
+                                <option value="NON_VEGETARIAN">
+                                    Non-Vegetarian
+                                </option>
+
+                                <option value="VEGAN">
+                                    Vegan
+                                </option>
+
+                                <option value="OTHER">
+                                    Other
+                                </option>
+
+                            </select>
+                        </div>
+
+
+                        <div className="form-group">
+                            <label htmlFor="quantity">
+                                Quantity
+                            </label>
+
+                            <input
+                                id="quantity"
+                                type="number"
+                                name="quantity"
+                                min="1"
+                                value={formData.quantity}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+
+
+                        <div className="form-group">
+                            <label>Unit: </label>
+
+                            <input
+                                id="unit"
+                                type="text"
+                                name="unit"
+                                value={formData.unit}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+
+                    <div className="form-group">
+
+                        <label>Available From: </label>
+
+                        <input
+                            id="available_from"
+                            type="datetime-local"
+                            name="available_from"
+                            value={formData.available_from}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+
+                    <div className="form-group">
+                        <label>Available Until: </label>
+
+                        <input
+                            id="available_until"
+                            type="datetime-local"
+                            name="available_until"
+                            value={formData.available_until}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+
+                    <div  className="form-group">
+                        <label>Pickup Address: </label>
+
+                        <textarea
+                            name="pickup_address"
+                            value={formData.pickup_address}
+                            onChange={handleChange}
+                            required
+                            rows="2"
+                        />
+                    </div>
+
+
+                    <div className="form-group">
+                        <label htmlFor="latitude">Latitude: </label>
+
+                        <input
+                            type="number"
+                            step="any"
+                            name="latitude"
+                            value={formData.latitude}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+
+                    <div className="form-group">
+                        <label htmlFor="longitude">Longitude: </label>
+
+                        <input
+                            type="number"
+                            step="any"
+                            name="longitude"
+                            value={formData.longitude}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+
+                    {error && (
+                        <div className="food-error">
+                            {error}
+                        </div>
+                    )}
+
+
+                    <button
+                        type="submit"
+                        disabled={saving}
+                        className="create-food-button"
+                    >
+                        {saving 
+                            ? "Saving..." 
+                            : "Save Changes"
+                        }
+                    </button>
+
+              </form>
+
+            </section>
+        </main>
     );
 }
 
